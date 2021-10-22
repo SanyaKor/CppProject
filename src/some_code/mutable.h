@@ -24,6 +24,7 @@ public:
 };
 
 void lambda_capture(){
+
     int value = 0;
 
     auto lambda{
@@ -32,4 +33,5 @@ void lambda_capture(){
             std::cout << "value: " << value << std::endl;
         }
     };
+    lambda();
 }

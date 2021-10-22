@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define N MUTABLE
+#define N LAMBDA
 
 #define LAMBDA 1
 #define MUTABLE 2
@@ -14,6 +14,6 @@
 
 int main(int argc, char **argv)
 {
-
+    lambdaS();
     return 0;
 }
