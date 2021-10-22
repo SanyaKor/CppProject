@@ -1,1 +1,0 @@
-int iValue = 3;
