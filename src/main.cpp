@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstdarg>
+#include "some_code/header.h"
 
-
-#define N TRY
+#define N STATICS
 
 #define LAMBDA 1
 #define MUTABLE 2
@@ -10,6 +10,8 @@
 #define FRIEND 4
 #define TEMPLATE 5
 #define TRY 6
+#define NAMESPACE 7
+#define STATICS 8
 
 #if N == LAMBDA
     #include "some_code/lambda.cpp"
@@ -23,19 +25,20 @@
     #include "some_code/templates.cpp"
 #elif N == TRY
     #include "some_code/try_catch.cpp"
+#elif N == NAMESPACE
+    #include "some_code/namespaces.cpp"
+#elif N == STATICS
+    #include "some_code/statics.cpp"
 
 #endif 
 
 
-double f(double x){
-    return 0.0;
-}
-
+using namespace staticThings;
 
 
 int main(int argc, char **argv)
 {
-    //noExcepts(exceptAlsoHere);
-    
+
+    //B *b = new B("B");
     return 0;
 }

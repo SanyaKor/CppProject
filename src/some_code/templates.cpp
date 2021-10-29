@@ -5,6 +5,8 @@ auto  templateFunction(FirstType t1, SecondType t2) -> decltype(t1 + t2)
     return t1 + t2;
 }
 
+
+
 template < typename FirstType, typename SecondType>
 class templateClass{
 public:
@@ -27,11 +29,22 @@ public:
 
 
 template < typename AnotherType, typename ... Args> 
-void f(AnotherType value, Args ... args)
+void variableArguments(AnotherType value, Args ... args)
 {
-    std::cout << t <<std::endl;
+    std::cout << "smth" <<std::endl;
     func(args...);
 }
+
+template <class T>
+void initializerList( std::initializer_list<T>  l ){
+    std::cout << l.size() << std::endl;
+}
+
+
+// x = 3.4
+// decltype(x) y = 4.5
+
+// decltype(x++) y = 4.5 make the same thing
 
 //template < typename FirstType, typename SecondType = int >
 
