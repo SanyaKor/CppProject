@@ -41,7 +41,7 @@ double exceptAlsoHere(double x,double y) noexcept {
 // noexcept( ... ) operator
 // noexcept { spec
 // noexcept ( noexcept ( f(x) ) ) 
-
+// also make th sme thing (new,typeid)
 
 
 

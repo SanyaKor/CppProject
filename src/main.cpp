@@ -2,7 +2,7 @@
 #include <cstdarg>
 #include "some_code/header.h"
 
-#define N STATICS
+#define N THREADS
 
 #define LAMBDA 1
 #define MUTABLE 2
@@ -12,6 +12,7 @@
 #define TRY 6
 #define NAMESPACE 7
 #define STATICS 8
+#define THREADS 9
 
 //static constexpr int TEST = 1; 
 
@@ -31,15 +32,17 @@
     #include "some_code/namespaces.cpp"
 #elif N == STATICS
     #include "some_code/statics.cpp"
+#elif N == THREADS
+   #include "some_code/threads.cpp"
+    
 #endif 
-
-
-using namespace staticThings;
 
 
 int main(int argc, char **argv)
 {
 
-    
+//    tFunction();
+//    std::thread t(tFunction);
+//    t.join();
     return 0;
 }
