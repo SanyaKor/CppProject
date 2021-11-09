@@ -13,6 +13,8 @@
 #define NAMESPACE 7
 #define STATICS 8
 
+//static constexpr int TEST = 1; 
+
 #if N == LAMBDA
     #include "some_code/lambda.cpp"
 #elif N == MUTABLE
@@ -29,7 +31,6 @@
     #include "some_code/namespaces.cpp"
 #elif N == STATICS
     #include "some_code/statics.cpp"
-
 #endif 
 
 
@@ -39,6 +40,6 @@ using namespace staticThings;
 int main(int argc, char **argv)
 {
 
-    //B *b = new B("B");
+    
     return 0;
 }

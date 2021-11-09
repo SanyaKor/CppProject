@@ -35,7 +35,7 @@ namespace staticThings{
         static int index;
         std::string name;
     };
-    B::
+    //B::index = 0;
     
 
 }

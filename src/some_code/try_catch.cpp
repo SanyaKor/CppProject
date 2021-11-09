@@ -33,10 +33,14 @@ double exceptHere(double x,double y){
 }
 
 double exceptAlsoHere(double x,double y) noexcept {
-if( y == 0 )
-    throw ("division by zero");
+//if( y == 0 )
+    //throw ("division by zero");
   return x/y;  
 }
+
+// noexcept( ... ) operator
+// noexcept { spec
+// noexcept ( noexcept ( f(x) ) ) 
 
 
 
