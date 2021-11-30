@@ -40,9 +40,9 @@
 
 int main(int argc, char **argv)
 {
-
-//    tFunction();
-//    std::thread t(tFunction);
-//    t.join();
+    std::thread t1(tAnotherFunction, "one");
+    std::thread t2(tAnotherFunction, "two");
+    t1.join();
+    t2.join();
     return 0;
 }
