@@ -12,3 +12,15 @@ void tAnotherFunction( std::string msg ){
             std::cout << result << std::endl;
     }
 }
+
+void runA( bool &value, int i ){
+    if(value){
+        std::string out = "[ " + std::to_string(i) + " ] value " + std::to_string(value)  + "\n";
+        std::cout << out;
+
+    }
+}
+
+void runB(bool& value) {
+    value = false;
+}

@@ -40,9 +40,19 @@
 
 int main(int argc, char **argv)
 {
-    std::thread t1(tAnotherFunction, "one");
-    std::thread t2(tAnotherFunction, "two");
-    t1.join();
-    t2.join();
+    // std::thread t1(tAnotherFunction, "one");
+    // std::thread t2(tAnotherFunction, "two");
+    // t1.join();
+    // t2.join();
+
+
+    for(int i = 0; i < 20; i++) {
+        bool value = true; //1
+        std::thread tA(runA, std::ref(value), i);
+        std::thread tB(runB, std::ref(value));
+        tA.join();
+        tB.join();
+    }
+    
     return 0;
 }
