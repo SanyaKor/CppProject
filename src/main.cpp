@@ -2,6 +2,7 @@
 #include <cstdarg>
 #include "some_code/header.h"
 
+
 #define N THREADS
 
 #define LAMBDA 1
@@ -40,22 +41,18 @@
 
 int main(int argc, char **argv)
 {
-   
-    std::queue<int> rawQueue;
-
-    for (int i = 0; i < 20 ; i++ )
-    {
-        rawQueue.push(i);
-    }
-
     
-
-    for ( int i = 0; i < 10; i++) {
-        std::thread tA(retrieve_and_delete, std::ref(rawQueue), "A");
-        std::thread tB(retrieve_and_delete, std::ref(rawQueue), "B");
-        tA.join();
-        tB.join();
+    std::thread MyThread(SomeProcess);
+    //MyThread.detach();
+    
+    
+    for(int i=0; i<10 ;i++){
+        std::cout << " thread id : " << std::this_thread::get_id() << "\tmain\t" << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
+    MyThread.join();
+
+
 
     return 0;
 }

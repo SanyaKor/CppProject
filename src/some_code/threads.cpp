@@ -4,6 +4,8 @@
 #include <mutex>
 #include <vector>
 #include <queue>
+#include <chrono>
+
 
 std::mutex door;
 
@@ -32,12 +34,13 @@ void runB(bool& value) {
 
 
 
-void retrieve_and_delete(std::queue<int>& rawQueue, std::string threadName) {
+void retrieveDelete(std::queue<int>& rawQueue, std::string threadName) {
     if( !rawQueue.empty() ) {
 
+        std::lock_guard<std::mutex> lock(door);
 
         //door.lock();
-        
+
         std::string out = "[ " + threadName + " ] front " + std::to_string(rawQueue.front());
         rawQueue.pop();
         out += " | new front " + std::to_string(rawQueue.front())  + "\n";
@@ -46,5 +49,17 @@ void retrieve_and_delete(std::queue<int>& rawQueue, std::string threadName) {
         //door.unlock();
 
     }
+    // lock_guard makes door.unlock() here 
 }
 
+
+void SomeProcess(){
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    for(int i=0; i<10 ;i++){
+        std::cout << " thread id : " << std::this_thread::get_id() << "\tanother proccess\t" << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+    }
+
+}
