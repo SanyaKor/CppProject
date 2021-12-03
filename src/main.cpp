@@ -40,19 +40,22 @@
 
 int main(int argc, char **argv)
 {
-    // std::thread t1(tAnotherFunction, "one");
-    // std::thread t2(tAnotherFunction, "two");
-    // t1.join();
-    // t2.join();
+   
+    std::queue<int> rawQueue;
 
+    for (int i = 0; i < 20 ; i++ )
+    {
+        rawQueue.push(i);
+    }
 
-    for(int i = 0; i < 20; i++) {
-        bool value = true; //1
-        std::thread tA(runA, std::ref(value), i);
-        std::thread tB(runB, std::ref(value));
+    
+
+    for ( int i = 0; i < 10; i++) {
+        std::thread tA(retrieve_and_delete, std::ref(rawQueue), "A");
+        std::thread tB(retrieve_and_delete, std::ref(rawQueue), "B");
         tA.join();
         tB.join();
     }
-    
+
     return 0;
 }

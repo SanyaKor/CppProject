@@ -1,6 +1,11 @@
 #include <iostream>
 #include <thread>
 #include <string.h>
+#include <mutex>
+#include <vector>
+#include <queue>
+
+std::mutex door;
 
 void tFunction(){
     std::cout << "tFunction" << std::endl;
@@ -24,3 +29,22 @@ void runA( bool &value, int i ){
 void runB(bool& value) {
     value = false;
 }
+
+
+
+void retrieve_and_delete(std::queue<int>& rawQueue, std::string threadName) {
+    if( !rawQueue.empty() ) {
+
+
+        //door.lock();
+        
+        std::string out = "[ " + threadName + " ] front " + std::to_string(rawQueue.front());
+        rawQueue.pop();
+        out += " | new front " + std::to_string(rawQueue.front())  + "\n";
+        std::cout << out;
+
+        //door.unlock();
+
+    }
+}
+
