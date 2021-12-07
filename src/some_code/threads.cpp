@@ -5,7 +5,7 @@
 #include <vector>
 #include <queue>
 #include <chrono>
-
+#include "math.h"
 
 std::mutex door;
 
@@ -57,9 +57,36 @@ void SomeProcess(){
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    for(int i=0; i<10 ;i++){
-        std::cout << " thread id : " << std::this_thread::get_id() << "\tanother proccess\t" << std::endl;
+    for(size_t i=0; true ;i++){
+        //std::thread::id this_id = std::this_thread::get_id();
+        std::cout << " thread id : " << std::this_thread::get_id()  << "\tanother proccess\t"  << i << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 
+}
+
+void PowProcess( double &a, int power ){
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+   
+    std::cout << " thread id : " << std::this_thread::get_id() << "\tPowProcess started\t"  << 0 << std::endl;
+    a =  pow(a, power);
+    std::this_thread::sleep_for(std::chrono::seconds(4));
+
+    std::cout << " thread id : " << std::this_thread::get_id() << "\tPowProcess finished\t"  << 0 << std::endl;
+}
+
+
+double SumProcess(double a,double b, double c){
+    double result;
+
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+
+    std::cout << " thread id : " << std::this_thread::get_id() << "\tSumProcess started\t"  << 0 << std::endl;
+    result = a+b+c;
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
+    std::cout << " thread id : " << std::this_thread::get_id() << "\tSumProcess finished\t"  << 0 << std::endl;
+    return result;
 }
