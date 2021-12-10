@@ -39,27 +39,35 @@
 #endif 
 
 
+
+
 int main(int argc, char **argv)
 {
     
-    double a=3;
-    double result=0.0;
-    std::thread MyThread1(PowProcess,std::ref(a),3);
-    std::thread MyThread2([&result, &a](){ result = SumProcess(a,2,1);});
+    
 
-    //MyThread.detach();
-    
-    
-    for(size_t i=0; i<10 ;i++){
-        std::cout << " thread id : " << std::this_thread::get_id() << "\tmain\t"  << i << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    // SomeProcesses sp;
+
+    // auto lmdb = [&](){sp.VoidProcess();};
+
+    // // std::thread SpThread(lmdb);
+    // std::thread SpThread(&SomeProcesses::VoidProcess,sp);
+
+    // for(size_t i=0; i<10 ;i++){
+    //     std::cout << " thread id : " << std::this_thread::get_id() << "\tmain\t"  << i << std::endl;
+    //     std::this_thread::sleep_for(std::chrono::seconds(1));
         
-    }
-    MyThread1.join();
-    MyThread2.join();
-    std::cout << "SumProcess result : " << a << std::endl;
+    // }
 
-    std::cout << "SumProcess result : " <<  result << std::endl;
+    // SpThread.join();
 
+    
+    std::thread th1(matrixOfElements,'@',5);
+
+    std::thread th2(matrixOfElements,'#',5);
+
+    th1.join();
+    th2.join();
     return 0;
 }

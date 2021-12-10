@@ -90,3 +90,33 @@ double SumProcess(double a,double b, double c){
     std::cout << " thread id : " << std::this_thread::get_id() << "\tSumProcess finished\t"  << 0 << std::endl;
     return result;
 }
+
+
+
+class SomeProcesses{
+public:
+    void VoidProcess(){
+        std::this_thread::sleep_for(std::chrono::seconds(3));
+
+        std::cout << " thread id : " << std::this_thread::get_id() << "\tVoidProcess started\t"  << 0 << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+
+        std::cout << " thread id : " << std::this_thread::get_id() << "\tVoidProcess finished\t"  << 0 << std::endl;
+    }
+
+
+};
+
+
+void matrixOfElements(char ch, int dimensions){
+
+    door.lock();
+    for(int i = 0; i < dimensions; i++){
+        for(int j = 0; j < dimensions; j++){
+            std::cout << ch  << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+    door.unlock();
+}   
