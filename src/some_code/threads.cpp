@@ -7,7 +7,14 @@
 #include <chrono>
 #include "math.h"
 
+std::recursive_mutex rm;
+
 std::mutex door;
+
+std::mutex mtx1;
+std::mutex mtx2;
+
+
 
 void tFunction(){
     std::cout << "tFunction" << std::endl;
@@ -108,9 +115,35 @@ public:
 };
 
 
-void matrixOfElements(char ch, int dimensions){
+void matrixOfElementsBAD(char ch, int dimensions){
 
-    door.lock();
+    
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    
+    {
+        std::lock_guard<std::mutex> lg(door);
+
+        for(int i = 0; i < dimensions; i++){
+            for(int j = 0; j < dimensions; j++){
+                std::cout << ch  << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
+    }
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
+}   
+
+void matrixOfElementsGOOD(char ch, int dimensions){
+
+    
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    
+    std::unique_lock<std::mutex> ul(door);
+
     for(int i = 0; i < dimensions; i++){
         for(int j = 0; j < dimensions; j++){
             std::cout << ch  << " ";
@@ -118,5 +151,71 @@ void matrixOfElements(char ch, int dimensions){
         std::cout << std::endl;
     }
     std::cout << std::endl;
-    door.unlock();
+
+    ul.unlock();
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 }   
+
+void Print1(char ch, int dimensions){
+
+    mtx2.lock();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    mtx1.lock();
+
+    for(int i = 0; i < dimensions; i++){
+        for(int j = 0; j < dimensions; j++){
+            std::cout << ch  << " ";
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
+    mtx1.unlock();
+    mtx2.unlock();    
+}
+
+
+void Print2(char ch, int dimensions){
+
+    std::unique_lock<std::mutex> lg1(mtx1, std::defer_lock);
+    std::unique_lock<std::mutex> lg2(mtx2, std::defer_lock);
+    
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    std::lock(mtx2,mtx1);
+
+    for(int i = 0; i < dimensions; i++){
+        for(int j = 0; j < dimensions; j++){
+            std::cout << ch  << " ";
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
+    mtx1.unlock();
+    mtx2.unlock();    
+}
+
+
+void RecursiveMutexFunction(int index){
+
+    rm.lock();
+    std::cout << index << " ";
+    
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    if(index<=1)
+    {
+        std::cout << std::endl; 
+        rm.unlock();
+        return; 
+    }
+    index--;
+    RecursiveMutexFunction(index);
+    rm.unlock();
+}
+

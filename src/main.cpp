@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdarg>
 #include "some_code/header.h"
-
+#include "some_code/Timer.cpp"
 
 #define N THREADS
 
@@ -43,31 +43,22 @@
 
 int main(int argc, char **argv)
 {
-    
-    
-
-
-    // SomeProcesses sp;
-
-    // auto lmdb = [&](){sp.VoidProcess();};
-
-    // // std::thread SpThread(lmdb);
-    // std::thread SpThread(&SomeProcesses::VoidProcess,sp);
-
-    // for(size_t i=0; i<10 ;i++){
-    //     std::cout << " thread id : " << std::this_thread::get_id() << "\tmain\t"  << i << std::endl;
-    //     std::this_thread::sleep_for(std::chrono::seconds(1));
-        
-    // }
-
-    // SpThread.join();
+    Timer timer;
 
     
-    std::thread th1(matrixOfElements,'@',5);
+    std::thread th1(Print1,'$',10);
+    //std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    std::thread th2(Print2,'#',10);
 
-    std::thread th2(matrixOfElements,'#',5);
+
+    timer.start();
 
     th1.join();
     th2.join();
+
+    timer.stop();
+    std::cout << timer.elapsedMilliseconds() << std::endl;
+
+
     return 0;
 }
