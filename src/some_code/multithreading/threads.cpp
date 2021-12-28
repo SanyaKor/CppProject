@@ -178,30 +178,6 @@ void Print1(char ch, int dimensions){
 }
 
 
-void Print2(char ch, int dimensions){
-
-    std::unique_lock<std::mutex> lg1(mtx1, std::defer_lock);
-    std::unique_lock<std::mutex> lg2(mtx2, std::defer_lock);
-    
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-
-    std::lock(mtx2,mtx1);
-
-    for(int i = 0; i < dimensions; i++){
-        for(int j = 0; j < dimensions; j++){
-            std::cout << ch  << " ";
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-
-    mtx1.unlock();
-    mtx2.unlock();    
-}
-
-
 void RecursiveMutexFunction(int index){
 
     rm.lock();

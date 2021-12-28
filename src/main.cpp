@@ -34,7 +34,7 @@
 #elif N == STATICS
     #include "some_code/statics.cpp"
 #elif N == THREADS
-   #include "some_code/threads.cpp"
+   #include "some_code/multithreading/shared_lock.cpp"
     
 #endif 
 
@@ -43,22 +43,20 @@
 
 int main(int argc, char **argv)
 {
-    Timer timer;
+    Timer t;
 
-    
-    std::thread th1(Print1,'$',10);
-    //std::this_thread::sleep_for(std::chrono::milliseconds(300));
-    std::thread th2(Print2,'#',10);
+    std::vector<std::thread> threads;
 
+    //for (int i = 0; i < 100; i++) {
+    threads.push_back(std::thread(Incrementer));
+    threads.push_back(std::thread(ImJustAReader));
+    //}
 
-    timer.start();
+    for (std::thread &t : threads) {
+        t.join();
+    }
+    std::cout << "g_counter: " << g_counter << std::endl;
 
-    th1.join();
-    th2.join();
-
-    timer.stop();
-    std::cout << timer.elapsedMilliseconds() << std::endl;
-
-
+  
     return 0;
 }
